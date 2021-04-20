@@ -131,6 +131,7 @@ class Shipment {
         $xml = str_replace("[CONSIGNEE_COUNTRY]", $this->consignee->country, $xml);
         $xml = str_replace("[CONSIGNEE_ZIP]", $this->consignee->zip, $xml);
         $xml = str_replace("[CONSIGNEE_COUNTRY_CODE]", $this->consignee->country_code, $xml);
+        $xml = str_replace("[CONSIGNEE_PHONE]", $this->consignee->phone, $xml);
         $xml = str_replace("[CONSIGNEE_EMAIL]", $this->consignee->email, $xml);
 
         $xml = str_replace("[SERVICE]", $this->service, $xml);
