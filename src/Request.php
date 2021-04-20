@@ -11,6 +11,11 @@ class Request {
 
     protected $live_mode = false;
 
+    public function __construct($live_mode = false)
+    {
+        $this->live_mode = $live_mode;
+    }
+
 
     public function setBody($body) {
         $this->body = $body;

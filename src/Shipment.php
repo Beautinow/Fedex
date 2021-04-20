@@ -29,7 +29,6 @@ class Shipment {
         $this->live_mode = $live_mode;
     }
 
-
     public function setShipper($shipper) {
         $this->shipper = $shipper;
     }
@@ -52,10 +51,9 @@ class Shipment {
             throw new \Exception("shipper is required");
         }
 
-
         $xml_body = $this->buildRequestBody();
 
-        $request = new Request();
+        $request = new Request($this->live_mode);
 
         $request->setBody($xml_body);
 
