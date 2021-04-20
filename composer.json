@@ -9,7 +9,7 @@
             "email": "harrieschen@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "ext-curl": "*"
     },
