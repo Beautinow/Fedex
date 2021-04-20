@@ -1,0 +1,21 @@
+{
+    "name": "beautinow/fedex",
+    "description": "Fedex api wrapper",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "HarriesChen",
+            "email": "harrieschen@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "ext-curl": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Beautinow\\Fedex\\": "src"
+        }
+    }
+}
