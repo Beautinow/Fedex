@@ -19,6 +19,8 @@ class Shipment {
 
     protected $api_key;
 
+    protected $shipper_reference_id;
+
     protected $live_mode;
 
     protected $service = "CBEC";
@@ -31,10 +33,17 @@ class Shipment {
 
     public function setShipper($shipper) {
         $this->shipper = $shipper;
+        return $this;
+    }
+
+    public function setShipperReferenceId($shipper_reference_id) {
+        $this->shipper_reference_id = $shipper_reference_id;
+        return $this;
     }
 
     public function setConsignee($consignee) {
         $this->consignee = $consignee;
+        return $this;
     }
 
     /**
@@ -67,6 +76,7 @@ class Shipment {
         $xml =
         "<CreateShipment>
             <Apikey>[API_KEY]</Apikey>
+            <ShipperReferenceID>[SHIPPER_REFERENCE_ID]</ShipperReferenceID>
             <Shipment>
                 <Shipper>
                     <ContactName>[SHIPPER_CONTACT_NAME]</ContactName>
@@ -100,6 +110,7 @@ class Shipment {
 
 
         $xml = str_replace("[API_KEY]", $this->api_key, $xml);
+        $xml = str_replace("[SHIPPER_REFERENCE_ID]", $this->api_key, $xml);
         $xml = str_replace("[SHIPPER_CONTACT_NAME]", $this->shipper->contact_name, $xml);
         $xml = str_replace("[SHIPPER_Company]", $this->shipper->company, $xml);
         $xml = str_replace("[SHIPPER_ADDRESS1]", $this->shipper->address1, $xml);
