@@ -75,6 +75,11 @@ class Shipment {
         return $this;
     }
 
+    public function setItems($items) {
+        $this->items = $items;
+        return $this;
+    }
+
     /**
      * Create a shipment
      * @throws \Exception
