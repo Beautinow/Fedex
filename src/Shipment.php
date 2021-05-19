@@ -25,6 +25,20 @@ class Shipment {
 
     protected $service = "CBEC";
 
+    /**
+     * weight of package
+     * @var float
+     */
+    protected $weight = 0.0;
+
+    /**
+     * unit of weight
+     * @var string
+     */
+    protected $weight_unit = "K";
+
+    protected $items = [];
+
     public function __construct($api_key, $live_mode = true)
     {
         $this->api_key = $api_key;
@@ -43,6 +57,21 @@ class Shipment {
 
     public function setConsignee($consignee) {
         $this->consignee = $consignee;
+        return $this;
+    }
+
+    public function setWeight($weight) {
+        $this->weight = $weight;
+        return $this;
+    }
+
+    /**
+     * “K” = Kg, “L” = Lbs
+     * @param $weight_unit
+     * @return $this
+     */
+    public function setWeightUnit($weight_unit) {
+        $this->weight_unit = $weight_unit;
         return $this;
     }
 
@@ -103,8 +132,10 @@ class Shipment {
                     <Phone>[CONSIGNEE_PHONE]</Phone>
                     <Email>[CONSIGNEE_EMAIL]</Email> 
                 </Consignee>
+                <Weight>[P_WEIGHT]</Weight>		
+                <WeightUnit>[P_WEIGHT_UNIT]</WeightUnit>
                 <Service>[SERVICE]</Service>
-                
+                [ITEMS]
             </Shipment>
         </CreateShipment>";
 
@@ -134,11 +165,35 @@ class Shipment {
         $xml = str_replace("[CONSIGNEE_PHONE]", $this->consignee->phone, $xml);
         $xml = str_replace("[CONSIGNEE_EMAIL]", $this->consignee->email, $xml);
 
+        $xml = str_replace("[P_WEIGHT]", $this->weight, $xml);
+        $xml = str_replace("[P_WEIGHT_UNIT]", $this->weight_unit, $xml);
         $xml = str_replace("[SERVICE]", $this->service, $xml);
+
+        $xml = str_replace("[ITEMS]", $this->createItemsXml($this->items), $xml);
 
         return $xml;
 
     }
 
+    private function createItemsXml($items) {
+        $xml = "";
+        foreach ($items as $item) {
+            $xml .= $this->createItemXML($item);
+        }
+        return $xml;
+    }
+
+    private function createItemXML($item) {
+        $xml = "<Item>
+            <Description>" . $item->description."</Description>
+            <SkuCode>" . $item->sku_code."</SkuCode>
+            <HsCode>" . $item->hs_code."</HsCode>
+            <CountryOfOrigin>" . $item->country_of_origin."</CountryOfOrigin>
+            <PurchaseUrl>" . $item->purchase_url."</PurchaseUrl>
+            <Quantity>" . $item->quantity."</Quantity>
+            <Value>" . $item->value."</Value>
+        </Item>";
+        return $xml;
+    }
 
 }
