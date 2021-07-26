@@ -18,7 +18,9 @@ class CreateShipmentResponse {
     public function __construct($result)
     {
         $this->error_level = $result['ErrorLevel'];
-        $this->error_level = $result['Error'];
+        if (isset($result['Error'])) {
+            $this->error = $result['Error'];
+        }
         $shipment = new CreateShipment();
         $shipment->tracking_number          = $result['Shipment']['TrackingNumber'];
         $shipment->fedex_tracking_number    = $result['Shipment']['FedExTrackingNumber'];
